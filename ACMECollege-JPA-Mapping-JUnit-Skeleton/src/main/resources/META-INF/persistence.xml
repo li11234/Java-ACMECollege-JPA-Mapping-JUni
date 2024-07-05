@@ -1,0 +1,71 @@
+<persistence version="2.2" 
+   xmlns="http://xmlns.jcp.org/xml/ns/persistence"  
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence   
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+  >
+  <persistence-unit name="acmecollege-PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/acmecollege?useSSL=false&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false"/>
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="javax.persistence.jdbc.user" value="cst8277"/>
+        <property name="javax.persistence.jdbc.password" value="8277"/>
+        
+        <!-- javax.persistence.schema-generation.database.action replaces hibernate.hbm2ddl.auto (sorta)
+         Possible values:
+          "none":            No schema creation or deletion will take place
+          "create":          Creates the schema necessary for your entities.
+                           The artifacts will remain unchanged after application redeployment.
+          "drop-and-create": Any artifacts in the database will be deleted, and the provider will
+                           create the database artifacts on deployment.
+          "drop":            Any artifacts in the database will be deleted on application deployment.
+        -->
+        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+        <!--
+          How are schema's created or dropped? Some options ...
+           property = javax.persistence.schema-generation.create-source  and/or
+                      javax.persistence.schema-generation.drop-source
+           Possible values:           
+            "metadata": Use the object/relational Annotation metadata to create or drop database artifacts
+            "script":   Use the user-provided script to create or drop database artifacts
+            "metadata-then-script": (combination) Use the metadata, then the user-provided script
+            "script-then-metadata": (combination) Use the user-provided script, then metadata
+        
+          Where are the scripts found? Location is relative to the persistence root folder
+          
+           property = javax.persistence.schema-generation.create-script-source  and/or
+                      javax.persistence.schema-generation.drop-script-source
+          For example: "META-INF/sql/users-createDDL.sql"  or
+                       "META-INF/sql/users-dropDDL.sql"
+          src
+          ├── main/
+          │   ├── java/
+          │   │   └── com/
+          │   │       ...
+          │   │           
+          │   └── resources/
+          │       ├── META-INF/
+          │       │   └── persistence.xml 
+          │       └── sql/
+          │           ├── users-createDDL.sql
+          │           └── users-dropDDL.sql
+          │ ...
+        
+        -->
+      <property name="javax.persistence.schema-generation.create-source" value="script"/>
+      <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/sql/acmecollege-create.sql"/>
+      <property name="javax.persistence.schema-generation.drop-source" value="script"/>
+      <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/sql/acmecollege-drop.sql"/>
+
+      <!-- Hibernate specific props 
+         https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#configurations
+      -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.use_sql_comments" value="true"/>
+      <property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor"/>
+    </properties>
+  </persistence-unit>
+</persistence>

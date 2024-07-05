@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="log-path">PropertiesConfiguration</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console-Appender" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>
+                    %d{ISO8601}|%highlight{[%-5level]} %c{1} -%msg%ex{full}%n
+                </pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    
+    <Loggers>
+        <!-- Hibernate is VERY verbose ... the following 3 appenders should be enough -->
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="Console-Appender" />
+        </Logger>
+        <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
+            <AppenderRef ref="Console-Appender" />
+        </Logger>
+        <Logger name="org.hibernate.pretty" level="all" additivity="false">
+            <AppenderRef ref="Console-Appender" />
+        </Logger>
+        
+        <Logger name="acmecollege" level="debug" additivity="false">
+            <AppenderRef ref="Console-Appender" />
+        </Logger>
+
+        <!-- default logging should only warn us -->
+        <Root level="warn">
+            <AppenderRef ref="Console-Appender" />
+        </Root>
+    </Loggers>
+</Configuration>
