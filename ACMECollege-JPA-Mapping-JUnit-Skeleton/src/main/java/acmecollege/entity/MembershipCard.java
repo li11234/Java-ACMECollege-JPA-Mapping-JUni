@@ -9,6 +9,9 @@ package acmecollege.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @SuppressWarnings("unused")
 
 /**
@@ -16,6 +19,8 @@ import java.io.Serializable;
  */
 //TODO MC01 - Add the missing annotations.
 //TODO MC02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "MEMBERSHIP_CARD")
 public class MembershipCard extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 

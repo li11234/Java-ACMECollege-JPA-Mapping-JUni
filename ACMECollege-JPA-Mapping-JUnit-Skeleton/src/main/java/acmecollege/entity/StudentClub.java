@@ -12,19 +12,35 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  * The persistent class for the student_club database table.
  */
 //TODO SC01 - Add the missing annotations.
 //TODO SC02 - StudentClub has subclasses AcademicStudentClub and NonAcademicStudentClub.  Look at week 9 slides for InheritanceType.
 //TODO SC03 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name="STUDENT_CLUB")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class StudentClub extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO SC04 - Add the missing annotations.
+	@Column(name="name")
 	private String name;
 
 	// TODO SC05 - Add the 1:M annotation.  This list should be effected by changes to this object (cascade).
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="club_id")
 	private Set<ClubMembership> clubMemberships = new HashSet<>();
 
 	public StudentClub() {
