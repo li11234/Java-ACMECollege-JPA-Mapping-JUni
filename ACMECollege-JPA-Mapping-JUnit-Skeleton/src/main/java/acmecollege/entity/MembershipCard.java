@@ -9,6 +9,15 @@ package acmecollege.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 @SuppressWarnings("unused")
 
 /**
@@ -16,16 +25,24 @@ import java.io.Serializable;
  */
 //TODO MC01 - Add the missing annotations.
 //TODO MC02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "MEMBERSHIP_CARD")
+@AttributeOverride( name = "id", column = @Column(name = "CARD_ID"))
 public class MembershipCard extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO MC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn ( name = "MEMBERSHIP_ID")
 	private ClubMembership clubMembership;
 
 	// TODO MC04 - Add annotations for M:1 mapping.  Changes here should not cascade.
+	@ManyToOne
+	@JoinColumn( name = "STUDENT_ID")
 	private Student owner;
 
 	// TODO MC05 - Add annotations.
+	@Column( name = "SIGNED")
 	private byte signed;
 
 	public MembershipCard() {

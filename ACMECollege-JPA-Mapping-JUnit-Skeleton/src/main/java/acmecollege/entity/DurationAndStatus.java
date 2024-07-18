@@ -11,17 +11,24 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 //TODO DS01 - This class is not an entity however it can be embedded in other entities.  Add missing annotation.
+@Embeddable
 public class DurationAndStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO DS02 - Add annotations
+	@Column(name = "START_DATE")
 	private LocalDateTime startDate;
 	
 	// TODO DS03 - Add annotations
+	@Column(name = "END_DATE")
 	private LocalDateTime endDate;
 
 	// TODO DS04 - Add annotations
+	@Column(name = "ACTIVE")
 	private byte active;
 
 	public DurationAndStatus() {

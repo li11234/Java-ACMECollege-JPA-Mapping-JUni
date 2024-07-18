@@ -11,6 +11,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @SuppressWarnings("unused")
 
 /**
@@ -18,28 +26,38 @@ import java.util.Set;
  */
 //TODO CO01 - Add the missing annotations.
 //TODO CO02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "COURSE")
+@AttributeOverride( name = "id", column = @Column(name = "COURSE_ID"))
 public class Course extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO CO03 - Add missing annotations.
+	@Column( name = "COURSE_CODE")
 	private String courseCode;
 
 	// TODO CO04 - Add missing annotations.
+	@Column( name = "COURSE_TITLE")
 	private String courseTitle;
 
 	// TODO CO05 - Add missing annotations.
+	@Column( name = "YEAR")
 	private int year;
 
 	// TODO CO06 - Add missing annotations.
+	@Column( name = "SEMESTER")
 	private String semester;
 
 	// TODO CO07 - Add missing annotations.
+	@Column( name = "CREDIT_UNITS")
 	private int creditUnits;
 
 	// TODO CO08 - Add missing annotations.
+	@Column( name = "ONLINE")
 	private byte online;
 
 	// TODO CO09 - Add annotations for 1:M relation.  Changes to this class should not cascade.
+	@OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<PeerTutorRegistration> peerTutorRegistrations = new HashSet<>();
 
 	public Course() {

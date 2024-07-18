@@ -46,9 +46,14 @@ public class PeerTutorRegistration extends PojoBaseCompositeKey<PeerTutorRegistr
 	private Student student;
 
 	//TODO PTR01 - Add missing annotations.  Similar to student, this field is a part of the composite key of this entity.  Changes to this class should cascade.  Reference to a course is not optional.
+	@MapsId("courseId")
+	@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false)	
 	private Course course;
 
 	//TODO PTR02 - Add missing annotations.  Changes to this class should cascade.
+	@ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+	@JoinColumn(name = "peer_tutor_id", referencedColumnName = "peer_tutor_id")
 	private PeerTutor peerTutor;
 
 	@Column(name = "numeric_grade")
