@@ -138,30 +138,48 @@ public class JUnitBase {
 		
 	}
 
-	protected static <T, R> T getWithId(EntityManager em, Class<T> clazz, Class<R> classPK,
-			SingularAttribute<? super T, R> sa, R id) {
-		// TODO JB05 - Optional helper method.  Create a CriteriaQuery here to be reused in your tests.
-		// Method signature is just a suggestion it can be modified if need be.
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<T> query = cb.createQuery(clazz);
-		Root<T> root = query.from(clazz);
-		query.select(root);
-		query.where(cb.equal(root.get(sa),id));
-		return em.createQuery(query).getSingleResult();
+//	protected static <T, R> T getWithId(EntityManager em, Class<T> clazz, Class<R> classPK,
+//			SingularAttribute<? super T, R> sa, int id) {
+//		// TODO JB05 - Optional helper method.  Create a CriteriaQuery here to be reused in your tests.
+//		// Method signature is just a suggestion it can be modified if need be.
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery<T> query = cb.createQuery(clazz);
+//		Root<T> root = query.from(clazz);
+//		query.select(root);
+//		query.where(cb.equal(root.get(sa),id));
+//		return em.createQuery(query).getSingleResult();
+//	}
+	
+	protected static <T> T getWithId(EntityManager em, Class<T> clazz, SingularAttribute<? super T, Integer> sa, Integer id) {
+	    CriteriaBuilder cb = em.getCriteriaBuilder();
+	    CriteriaQuery<T> query = cb.createQuery(clazz);
+	    Root<T> root = query.from(clazz);
+	    query.select(root);
+	    query.where(cb.equal(root.get(sa), id));
+	    return em.createQuery(query).getSingleResult();
 	}
 
-	protected static <T, R> long getCountWithId(EntityManager em, Class<T> clazz, Class< R> classPK,
-			SingularAttribute<? super T, R> sa, R id) {
-		// TODO JB06 - Optional helper method.  Create a CriteriaQuery here to be reused in your tests.
-		// Method signature is just a suggestion it can be modified if need be.
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Long> query = cb.createQuery(Long.class);
-		Root<T> root = query.from(clazz);
-		query.select(cb.count(root));
-		query.where(cb.equal(root.get(sa), id));
-		return em.createQuery(query).getSingleResult();
+//	protected static <T, R> long getCountWithId(EntityManager em, Class<T> clazz, Class< R> classPK,
+//			SingularAttribute<? super T, R> sa, R id) {
+//		// TODO JB06 - Optional helper method.  Create a CriteriaQuery here to be reused in your tests.
+//		// Method signature is just a suggestion it can be modified if need be.
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery<Long> query = cb.createQuery(Long.class);
+//		Root<T> root = query.from(clazz);
+//		query.select(cb.count(root));
+//		query.where(cb.equal(root.get(sa), id));
+//		return em.createQuery(query).getSingleResult();
+//	}
+	
+	protected static <T, R> long getCountWithId(EntityManager em, Class<T> clazz, SingularAttribute<? super T, R> sa, R id) {
+	    CriteriaBuilder cb = em.getCriteriaBuilder();
+	    CriteriaQuery<Long> query = cb.createQuery(Long.class);
+	    Root<T> root = query.from(clazz);
+	    query.select(cb.count(root));
+	    query.where(cb.equal(root.get(sa), id));
+	    return em.createQuery(query).getSingleResult();
 	}
-
+	
 	@BeforeAll
 	static void setupAll() {
 		emf = buildEMF();

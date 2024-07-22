@@ -51,7 +51,7 @@ public class Student extends PojoBase implements Serializable {
 	private String lastName;
 
 	// TODO ST05 - Add annotations for 1:M relation.  Changes should not cascade.
-	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany
 	@JoinColumn( name = "STUDENT_ID")
 	private Set<MembershipCard> membershipCards = new HashSet<>();
 
